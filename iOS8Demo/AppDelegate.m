@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface AppDelegate ()
 
 @end
@@ -17,7 +19,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //window.tintColor = [UIColor purpleColor];
+    //设置导航栏的背景色
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x067AB5)];
+    //设置导航栏的着色
+    [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    [self setNavTitle];
+    
     return YES;
+
+}
+
+//设置导航栏的文字的字体，阴影和大小
+- (void)setNavTitle{
+
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+    shadow.shadowOffset = CGSizeMake(0, 1);
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                    shadow, NSShadowAttributeName,
+    [UIFont fontWithName:@ "HelveticaNeue-CondensedBlack"  size:21.0], NSFontAttributeName, nil]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
